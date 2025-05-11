@@ -275,8 +275,18 @@
             applyEditsBtn.addEventListener('click', startEditing);
 
             downloadBtn.addEventListener('click', () => {
-                alert('Download would start here in a real implementation');
-            });
+    const blob = new Blob([currentFile], { type: currentFile.type });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'optimized_' + currentFile.name;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+});
+
 
             newFileBtn.addEventListener('click', resetAll);
 
